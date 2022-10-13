@@ -1,0 +1,17 @@
+.footer-link {
+    display: inline-block;
+}
+.footer-light .footer-link {
+    color: rgba(67, 89, 113, 0.5);
+}
+.footer-light .footer-link:hover, .footer-light .footer-link:focus {
+    color: #697a8d;
+}
+.bg-footer-theme {
+    background-color: #f5f5f9 !important;
+    color: #697a8d;
+}
+.bg-footer-theme {
+    color: #697a8d;
+}
+
