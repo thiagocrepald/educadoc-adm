@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom';
 
 import firebase from '../../config/firebase';
 
+
 function MentorCadastro() {
 
     const [msgTipo, setMsgTipo] = useState();
@@ -15,11 +16,32 @@ function MentorCadastro() {
     const [emissao, setEmissao] = useState();
     const [especialidade, setEspecialidade] = useState();
     const [foto, setFoto] = useState();
-    const [usuarioEmail, setUsuarioEmail] = useState();
+    const [usuarioEmail] = useSelector(state => state.usuarioEmail);
+    
+    const storage = firebase.storage();
+    const db = firebase.firestore();
+
 
     function cadastrar() {
-        alert('VAMOS CADASTRAR');
-    }
+        setMsgTipo(null);
+        
+        storage.ref(`imagens/${foto.name}`).put(foto).then(() => {
+            db.collection('mentor').add({
+                nome: nome,
+                email: email,
+                crm: crm,
+                emissao: emissao,
+                especialidade: especialidade,
+                foto: foto.name,
+                usuario: usuarioEmail,
+                criacao: new Date()
+            }).then(() => {
+                setMsgTipo('sucesso');
+            }).catch(erro => {
+                setMsgTipo('erro');
+        });
+    });
+}
 
     return(
         <>
@@ -32,29 +54,29 @@ function MentorCadastro() {
                 <form>
                     <div className='form-group'>
                         <label>Nome Completo</label>
-                        <input type='text' className='form-control'/>
+                        <input onChange={(e) => setNome(e.target.value) } type='text' className='form-control'/>
                     </div>
 
                     <div className='form-group'>
                         <label>E-mail:</label>
-                        <input type='text' className='form-control'/>
+                        <input onChange={(e) => setEmail(e.target.value) } type='text' className='form-control'/>
                     </div>
 
                     <div className='form-group row'>
                         <div className='col-6'>
                             <label>CRM:</label>
-                            <input type='text' className='form-control'/>
+                            <input onChange={(e) => setCrm(e.target.value) } type='text' className='form-control'/>
                         </div>
                         <div className='col-6'>
                             <label>Emissão do CRM:</label>
-                            <input type="date" className='form-control'/>
+                            <input onChange={(e) => setEmissao(e.target.value) } type="date" className='form-control'/>
                         </div>
                     </div>
 
                     <div className='form-group row'>
                         <div className='col-6'>
                             <label>Especialidade</label>
-                            <select className='form-control'>
+                            <select onChange={(e) => setEspecialidade(e.target.value) } className='form-control'>
                                 <option disable selected value>-- Selecione a especialidade --</option>
                                 <option>Pediatria</option>
                                 <option>Clinico geral</option>
@@ -63,7 +85,7 @@ function MentorCadastro() {
 
                         <div className='col-6'>
                             <label>Upload da foto:</label>
-                            <input type='file' className='form-control'/>
+                            <input onChange={(e) => setFoto(e.target.files[0]) } type='file' className='form-control'/>
                         </div>
                     </div>
 
