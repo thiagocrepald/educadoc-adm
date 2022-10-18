@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import store from '../src/store/';
 import { Provider } from 'react-redux';
 import UsuarioRecuperarSenha from './view/usuario-recuperar-senha';
-import MentorCadastro from './view/mentor-cadastro/';
+import MentorCadastro from './view/mentor-cadastro';
 
 /*PÁGINAS*/
 import Login from './view/login/';

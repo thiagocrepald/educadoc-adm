@@ -27,9 +27,6 @@ function Navbar(){
                 <>
                     <li className="nav-item">
                         <Link className="nav-link" to="/mentorcadastro">Cadastrar Mentor </Link>
-                    </li> 
-                    <li className="nav-item">
-                        <Link className="nav-link" to="">Ver todos </Link>
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link" onClick={() => dispatchEvent({type: 'LOG_OUT'}) }>Sair </Link>
